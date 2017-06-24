@@ -6,6 +6,16 @@ const start$ = Rx.Observable.fromEvent(startButton, 'click');
 const stop$ = Rx.Observable.fromEvent(stopButton, 'click');
 const reset$ = Rx.Observable.fromEvent(resetButton, 'click');
 
+const minutes = document.querySelector("#minutes");
+const seconds = document.querySelector("#seconds");
+const milliseconds = document.querySelector("#milliseconds");
+
+const render = (time) => {
+    minutes.innerHTML = time.minutes;
+    seconds.innerHTML = time.seconds;
+    milliseconds.innerHTML = time.milliseconds;
+}
+
 const toTime = (time) => {
     return {
         milliseconds: Math.floor(time%100),
@@ -30,4 +40,4 @@ const app$ = start$
                 .switchMapTo(incOrReset$)
                 .startWith(initial)
                 .scan((acc, currFunc) => currFunc(acc))
-                .subscribe(val => console.log(toTime(val)) );
+                .subscribe(val => render(toTime(val)) );
