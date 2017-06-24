@@ -40,4 +40,5 @@ const app$ = start$
                 .switchMapTo(incOrReset$)
                 .startWith(initial)
                 .scan((acc, currFunc) => currFunc(acc))
-                .subscribe(val => render(toTime(val)) );
+                .map(toTime)
+                .subscribe(val => render(val));
