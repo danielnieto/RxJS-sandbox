@@ -6,7 +6,7 @@ const start$ = Rx.Observable.fromEvent(startButton, 'click');
 const stop$ = Rx.Observable.fromEvent(stopButton, 'click');
 const reset$ = Rx.Observable.fromEvent(resetButton, 'click');
 
-const interval$ = Rx.Observable.interval(100);
+const interval$ = Rx.Observable.interval(10);
 
 const stopOrReset$ = Rx.Observable.merge(stop$, reset$);
 
