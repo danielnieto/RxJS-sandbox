@@ -8,7 +8,9 @@ const reset$ = Rx.Observable.fromEvent(resetButton, 'click');
 
 const interval$ = Rx.Observable.interval(100);
 
-const pausible$ = interval$.takeUntil(stop$);
+const stopOrReset$ = Rx.Observable.merge(stop$, reset$);
+
+const pausible$ = interval$.takeUntil(stopOrReset$);
 
 const initial = 0;
 const inc = acc => acc + 1;
