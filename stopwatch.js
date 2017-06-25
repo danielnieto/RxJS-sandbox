@@ -10,10 +10,12 @@ const minutes = document.querySelector("#minutes");
 const seconds = document.querySelector("#seconds");
 const milliseconds = document.querySelector("#milliseconds");
 
+const pad = (number) => number <= 9 ? "0" + number : number;
+
 const render = (time) => {
-    minutes.innerHTML = time.minutes;
-    seconds.innerHTML = time.seconds;
-    milliseconds.innerHTML = time.milliseconds;
+    minutes.innerHTML = pad(time.minutes);
+    seconds.innerHTML = pad(time.seconds);
+    milliseconds.innerHTML = pad(time.milliseconds);
 }
 
 const toTime = (time) => {
