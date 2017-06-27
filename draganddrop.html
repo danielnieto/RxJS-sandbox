@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+<script src="https://unpkg.com/@reactivex/rxjs@5.0.3/dist/global/Rx.js"></script>
+  <meta name="viewport" content="width=device-width">
+  <title>RxJS Drag and Drop</title>
+</head>
+<body>
+    
+    <div id="draggable">Drag me!</div>
+
+<script src="draganddrop.js"></script>    
+</body>
+<style>
+    #draggable{
+        color: white;
+        background-color: #a6d120;
+        height: 80px;
+        width: 80px;
+        position: absolute;
+        cursor: move;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-user-select:none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+</style>
+</html>
