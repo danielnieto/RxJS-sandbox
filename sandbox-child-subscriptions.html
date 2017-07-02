@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="Rx.js"></script>
+    <meta name="viewport" content="width=device-width">
+    <title>Sandbox</title>
+</head>
+
+<body>
+
+    Look at the console
+
+    <script>
+
+        var interval$ = Rx.Observable.interval(1000);
+
+        var sub1 = interval$.subscribe( val => console.log(`Sub1: ${val}`));
+        var sub2 = interval$.subscribe( val => console.log(`Sub2: ${val}`));
+        var sub3 = interval$.subscribe( val => console.log(`Sub3: ${val}`));
+
+        // add sub2 to be unsubscribed when sub1 is unsubscribed
+        sub1.add(sub2);
+        // add sub3 to be unsubscribed when sub2 is unsubscribed        
+        sub2.add(sub3);
+
+        setTimeout(()=>{
+            // unsubscribe sub1 and it will do the same for sub2, and sub2 will unsubscribe sub3
+            sub1.unsubscribe();
+        }, 5000);
+
+    </script>
+</body>
+
+</html>
