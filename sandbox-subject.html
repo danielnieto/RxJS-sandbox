@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="Rx.js"></script>
+    <meta name="viewport" content="width=device-width">
+    <title>Sandbox</title>
+</head>
+
+<body>
+
+    Look at the console
+
+    <script>
+
+        // a subject can broadcast to several Observers attached to it.
+
+        var subject = new Rx.Subject();
+
+        subject.subscribe({
+            next: (v) => console.log('observerA: ' + v)
+        });
+        subject.subscribe({
+            next: (v) => console.log('observerB: ' + v)
+        });
+
+        subject.next(1);
+        subject.next(2);
+    </script>
+</body>
+
+</html>
