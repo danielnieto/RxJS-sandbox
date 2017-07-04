@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="Rx.js"></script>
+    <meta name="viewport" content="width=device-width">
+    <title>Sandbox</title>
+</head>
+
+<body>
+
+    Look at the console
+
+    <script>
+
+        // a subject can broadcast to several Observers subscribed to it.
+
+        var subject = new Rx.Subject();
+
+        var observableRandom = Rx.Observable.create(function(observable){
+
+            // this function will be executed each time someone subscribes to this observable.
+            // it creates a new execution, therefore, it will always "emit" a different random number
+            observable.next(Math.round(Math.random()*100));
+            observable.complete();
+            
+        });
+        
+        // subscription to a Subject, will NOT trigger a the creation of a new execution context. All subscriptions will share the same "instance"
+        subject.subscribe({
+            next: (v) => console.log('Subject observerA: ' + v)
+        });
+        
+        // subscription to a Subject, will NOT trigger a the creation of a new execution context. All subscriptions will share the same "instance"
+        subject.subscribe({
+            next: (v) => console.log('Subject observerB: ' + v)
+        });
+
+        // send a random number to all subscribers
+        subject.next(Math.round(Math.random()*100));
+
+        // this will cause a new Observable to be created, sub1 and sub2 will receive different values.
+        var sub1 = observableRandom.subscribe((val)=>{
+            console.log("Observable Observer A: " + val);
+        });
+        // this will cause a new Observable to be created, sub1 and sub2 will receive different values.
+        var sub2 = observableRandom.subscribe((val)=>{
+            console.log("Observable Observer B: " + val);
+        });
+
+    </script>
+</body>
+
+</html>
